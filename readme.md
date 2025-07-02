@@ -80,16 +80,6 @@ Visit: `http://localhost:8080/admin/login`
 
 ---
 
-## 📘 Future Scope
-
-* Styling upgrade using Bootstrap or Tailwind CSS
-* Customer-side portal for shopping
-* Cart & order placement
-* Admin email notifications
-* Spring Security for session & password encryption
-
----
-
 ## 📁 Folder Structure Highlights
 
 ```
@@ -103,17 +93,10 @@ src/
 
 ---
 
-## 👋 Contributing
-
-This is a prototype project — contributions and improvements are welcome!
-
----
-
 ## 🌟 Author
 
 **Milind Jain**
 Full Stack Java Developer
-[GitHub Profile](https://github.com/your-username)
 
 ---
 
