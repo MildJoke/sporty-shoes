@@ -1,28 +1,149 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Add Product</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #ffffff;
+            color: #111;
+        }
+
+        aside {
+            width: 240px;
+            background-color: #111;
+            color: #fff;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+        }
+
+        aside h1 {
+            color: #e10600;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        aside a, aside form button {
+            color: #fff;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background 0.3s;
+            font-size: 1rem;
+        }
+
+        aside a:hover, aside form button:hover {
+            background-color: #e10600;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            background-color: #f8f8f8;
+            overflow-y: auto;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-left: 5px solid #e10600;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.6rem;
+            margin-top: 0.3rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            background-color: #e10600;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #c10500;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            text-decoration: none;
+            color: #e10600;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Add New Product</h1>
+<aside>
+    <h1>SportyShoes</h1>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/products">Products</a>
+    <a href="/admin/users">Users</a>
+    <a href="/admin/purchases">Reports</a>
+    <a href="/admin/change-password">Change Password</a>
+    <form th:action="@{/admin/logout}" method="post" style="margin: 0;">
+        <button type="submit">Logout</button>
+    </form>
+</aside>
+
+<main>
+    <h2>Add New Product</h2>
 
     <form th:action="@{/admin/products/add}" th:object="${product}" method="post">
-        <p>Name: <input type="text" th:field="*{name}" required /></p>
-        <p>Price: <input type="number" th:field="*{price}" step="0.01" required /></p>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required />
 
-        <p>Category:
-            <select th:field="*{category.id}" required>
-                <option value="">-- Select Category --</option>
-                <option th:each="cat : ${categories}"
-                        th:value="${cat.id}"
-                        th:text="${cat.name}">
-                </option>
-            </select>
-        </p>
+        <label>Price:</label>
+        <input type="number" th:field="*{price}" step="0.01" required />
+
+        <label>Category:</label>
+        <select th:field="*{category}" required>
+            <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+        </select>
 
         <button type="submit">Add Product</button>
     </form>
 
-    <p><a href="/admin/products">Back to Product List</a></p>
+    <a class="back-link" href="/admin/products">← Back to Product List</a>
+</main>
 </body>
 </html>

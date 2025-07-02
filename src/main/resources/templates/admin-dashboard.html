@@ -1,21 +1,105 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #ffffff;
+            color: #111;
+        }
+        aside {
+            width: 240px;
+            background-color: #111;
+            color: #fff;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+        }
+        aside h1 {
+            color: #e10600;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        aside a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        aside a:hover {
+            background-color: #e10600;
+        }
+        main {
+            flex: 1;
+            padding: 2rem;
+            background-color: #f8f8f8;
+            overflow-y: auto;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+        }
+        .action {
+            background-color: #fff;
+            border: 2px solid #111;
+            border-left: 5px solid #e10600;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease;
+        }
+        .action:hover {
+            box-shadow: 0 0 10px rgba(225, 6, 0, 0.4);
+        }
+        .action a {
+            text-decoration: none;
+            color: #111;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
 <body>
-    <h2>Welcome to Admin Dashboard!</h2>
-
-
-    <ul>
-        <li><a th:href="@{/admin/products}">Manage Products</a></li>
-        <li><a th:href="@{/admin/users}">View Users</a></li>
-        <li><a th:href="@{/admin/purchases}">View Purchases</a></li>
-        <li><a th:href="@{/admin/change-password}">Change Password</a></li> <!-- ✅ New link -->
-    </ul>
-   <form method="post" action="/admin/logout">
-        <button type="submit">Logout</button>
-    </form>
-
+    <aside>
+        <h1>SportyShoes</h1>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/admin/products">Products</a>
+        <a href="/admin/users">Users</a>
+        <a href="/admin/purchases">Reports</a>
+        <a href="/admin/change-password">Change Password</a>
+        <a href="/admin/logout">Logout</a>
+    </aside>
+    <main>
+        <h2>Welcome to the Admin Dashboard</h2>
+        <div class="actions">
+            <div class="action">
+                <a href="/admin/products">Manage Products</a>
+            </div>
+            <div class="action">
+                <a href="/admin/users">View Users</a>
+            </div>
+            <div class="action">
+                <a href="/admin/purchases">View Purchase Reports</a>
+            </div>
+            <div class="action">
+                <a href="/admin/change-password">Change Admin Password</a>
+            </div>
+        </div>
+    </main>
 </body>
-</html> 
+</html>
