@@ -99,7 +99,3 @@ src/
 Full Stack Java Developer
 
 ---
-
-## ⚖️ License
-
-This project is for educational and presentation purposes only.
