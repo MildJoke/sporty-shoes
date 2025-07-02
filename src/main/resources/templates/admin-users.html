@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+</head>
+<body>
+    <h1>Registered Users</h1>
+
+    <form th:action="@{/admin/users}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by name or email" />
+        <button type="submit">Search</button>
+    </form>
+
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><a href="/admin/dashboard">Back to Dashboard</a></p>
+</body>
+</html>

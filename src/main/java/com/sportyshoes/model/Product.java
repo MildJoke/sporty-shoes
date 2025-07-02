@@ -13,6 +13,7 @@ public class Product {
     private double price;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     // Getters and setters

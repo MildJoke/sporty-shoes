@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h2>Welcome to Admin Dashboard!</h2>
+
+
+    <ul>
+        <li><a th:href="@{/admin/products}">Manage Products</a></li>
+        <li><a th:href="@{/admin/users}">View Users</a></li>
+        <li><a th:href="@{/admin/purchases}">View Purchases</a></li>
+        <li><a th:href="@{/admin/change-password}">Change Password</a></li> <!-- ✅ New link -->
+    </ul>
+   <form method="post" action="/admin/logout">
+        <button type="submit">Logout</button>
+    </form>
+
+</body>
+</html> 

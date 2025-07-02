@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Product</title>
+</head>
+<body>
+    <h1>Edit Product</h1>
+
+    <form th:action="@{/admin/products/edit/{id}(id=${product.id})}" th:object="${product}" method="post">
+        <p>Name: <input type="text" th:field="*{name}" required /></p>
+        <p>Price: <input type="number" th:field="*{price}" step="0.01" required /></p>
+
+        <p>Category:
+            <select th:field="*{category.id}" required>
+                <option value="">-- Select Category --</option>
+                <option th:each="cat : ${categories}" 
+                        th:value="${cat.id}" 
+                        th:text="${cat.name}" 
+                        th:selected="${cat.id == product.category.id}">
+                </option>
+            </select>
+        </p>
+
+        <button type="submit">Update Product</button>
+    </form>
+
+    <p><a href="/admin/products">Back to Product List</a></p>
+</body>
+</html>

@@ -4,11 +4,13 @@ import com.sportyshoes.model.*;
 import com.sportyshoes.repository.*;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @Component
+@Profile("!test")
 public class DataLoader implements CommandLineRunner {
 
     private final AdminRepository adminRepository;
@@ -30,61 +32,93 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        // Admin
-        Admin admin = new Admin();
-        admin.setUsername("admin");
-        admin.setPassword("admin123");
-        adminRepository.save(admin);
+    public void run(String... args) {
+        // ✅ Admin (check by username only)
+        if (adminRepository.findByUsername("admin") == null) {
 
-        // Users
-        User user1 = new User();
-        user1.setName("Alice");
-        user1.setEmail("alice@example.com");
-        user1.setPassword("alicepass");
-        userRepository.save(user1);
+            Admin admin = new Admin();
+            admin.setUsername("admin");
+            admin.setPassword("admin123");
+            adminRepository.save(admin);
+            System.out.println("✅ Admin created");
+        }
 
-        User user2 = new User();
-        user2.setName("Bob");
-        user2.setEmail("bob@example.com");
-        user2.setPassword("bobpass");
-        userRepository.save(user2);
+        // ✅ Users (check by email only)
+        User user1 = userRepository.findByEmail("alice@example.com").orElse(null);
+        if (user1 == null) {
+            user1 = new User();
+            user1.setName("Alice");
+            user1.setEmail("alice@example.com");
+            user1.setPassword("alicepass");
+            userRepository.save(user1);
+            System.out.println("✅ User Alice created");
+        }
 
-        // Categories
-        Category running = new Category();
-        running.setName("Running");
-        categoryRepository.save(running);
+        User user2 = userRepository.findByEmail("bob@example.com").orElse(null);
+        if (user2 == null) {
+            user2 = new User();
+            user2.setName("Bob");
+            user2.setEmail("bob@example.com");
+            user2.setPassword("bobpass");
+            userRepository.save(user2);
+            System.out.println("✅ User Bob created");
+        }
 
-        Category casual = new Category();
-        casual.setName("Casual");
-        categoryRepository.save(casual);
+        // ✅ Categories
+        Category running = categoryRepository.findByName("Running");
+        if (running == null) {
+            running = new Category();
+            running.setName("Running");
+            categoryRepository.save(running);
+            System.out.println("✅ Category Running created");
+        }
 
-        // Products
-        Product shoe1 = new Product();
-        shoe1.setName("Nike Runner");
-        shoe1.setPrice(4500.0);
-        shoe1.setCategory(running);
-        productRepository.save(shoe1);
+        Category casual = categoryRepository.findByName("Casual");
+        if (casual == null) {
+            casual = new Category();
+            casual.setName("Casual");
+            categoryRepository.save(casual);
+            System.out.println("✅ Category Casual created");
+        }
 
-        Product shoe2 = new Product();
-        shoe2.setName("Adidas Everyday");
-        shoe2.setPrice(3000.0);
-        shoe2.setCategory(casual);
-        productRepository.save(shoe2);
+        // ✅ Products
+        Product shoe1 = productRepository.findByName("Nike Runner");
+        if (shoe1 == null) {
+            shoe1 = new Product();
+            shoe1.setName("Nike Runner");
+            shoe1.setPrice(4500.0);
+            shoe1.setCategory(running);
+            productRepository.save(shoe1);
+            System.out.println("✅ Product Nike Runner created");
+        }
 
-        // Purchases
-        Purchase purchase1 = new Purchase();
-        purchase1.setDate(LocalDate.now());
-        purchase1.setUser(user1);
-        purchase1.setProduct(shoe1);
-        purchaseRepository.save(purchase1);
+        Product shoe2 = productRepository.findByName("Adidas Everyday");
+        if (shoe2 == null) {
+            shoe2 = new Product();
+            shoe2.setName("Adidas Everyday");
+            shoe2.setPrice(3000.0);
+            shoe2.setCategory(casual);
+            productRepository.save(shoe2);
+            System.out.println("✅ Product Adidas Everyday created");
+        }
 
-        Purchase purchase2 = new Purchase();
-        purchase2.setDate(LocalDate.now());
-        purchase2.setUser(user2);
-        purchase2.setProduct(shoe2);
-        purchaseRepository.save(purchase2);
+        // ✅ Purchases
+        if (purchaseRepository.count() == 0) {
+            Purchase purchase1 = new Purchase();
+            purchase1.setDate(LocalDate.now());
+            purchase1.setUser(user1);
+            purchase1.setProduct(shoe1);
+            purchaseRepository.save(purchase1);
 
-        System.out.println("✅ Sample data loaded.");
+            Purchase purchase2 = new Purchase();
+            purchase2.setDate(LocalDate.now());
+            purchase2.setUser(user2);
+            purchase2.setProduct(shoe2);
+            purchaseRepository.save(purchase2);
+
+            System.out.println("✅ Sample purchases created");
+        }
+
+        System.out.println("✅ Data loading complete.");
     }
 }
