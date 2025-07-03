@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard - SportyShoes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background-color: #fff;
+            color: #111;
+        }
+        header {
+            background-color: #111;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            color: #e10600;
+            margin: 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 600;
+        }
+        main {
+            padding: 2rem;
+        }
+        .welcome {
+            background: #f9f9f9;
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        .welcome h2 {
+            color: #e10600;
+            margin-bottom: 0.5rem;
+        }
+        .stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            flex: 1;
+            background: #fff;
+            padding: 1.5rem;
+            border: 2px solid #eee;
+            border-left: 5px solid #e10600;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .stat-card strong {
+            font-size: 1.1rem;
+        }
+        .stat-card p {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+        h3 {
+            color: #e10600;
+            margin-top: 2rem;
+        }
+        .actions {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .action-box {
+            flex: 1;
+            min-width: 220px;
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .action-box:hover {
+            background-color: #e10600;
+        }
+        .action-box i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>SportyShoes</h1>
+    <nav>
+        <a href="/user/products">Browse Products</a>
+        <a href="/user/orders">My Orders</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+<main>
+    <div class="welcome">
+        <h2>Welcome, <span th:text="${user.name}">User</span>!</h2>
+        <p><strong>Email:</strong> <span th:text="${user.email}">email@example.com</span></p>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <strong>Total Orders</strong>
+            <p th:text="${totalOrders}">0</p>
+        </div>
+        <div class="stat-card">
+            <strong>Last Order</strong>
+            <p th:text="${lastOrder != null ? #dates.format(lastOrder.purchaseDate, 'dd MMM yyyy') : 'N/A'}">N/A</p>
+        </div>
+    </div>
+
+    <h3>Quick Actions</h3>
+    <div class="actions">
+        <a href="/user/products" class="action-box">
+            <i>🛒</i>
+            Browse Products
+        </a>
+        <a href="/user/orders" class="action-box">
+            <i>📦</i>
+            My Orders
+        </a>
+        <a href="/user/edit" class="action-box">
+            <i>👤</i>
+            Edit Profile
+        </a>
+    </div>
+</main>
+</body>
+</html>

@@ -105,13 +105,13 @@ public class DataLoader implements CommandLineRunner {
         // ✅ Purchases
         if (purchaseRepository.count() == 0) {
             Purchase purchase1 = new Purchase();
-            purchase1.setDate(LocalDate.now());
+            purchase1.setPurchaseDate(LocalDate.now());
             purchase1.setUser(user1);
             purchase1.setProduct(shoe1);
             purchaseRepository.save(purchase1);
 
             Purchase purchase2 = new Purchase();
-            purchase2.setDate(LocalDate.now());
+            purchase2.setPurchaseDate(LocalDate.now());
             purchase2.setUser(user2);
             purchase2.setProduct(shoe2);
             purchaseRepository.save(purchase2);

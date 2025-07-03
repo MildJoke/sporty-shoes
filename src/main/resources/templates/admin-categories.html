@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #ffffff;
+        }
+
+        aside {
+            width: 240px;
+            background-color: #111;
+            color: #fff;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        aside h1 {
+            color: #e10600;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        aside a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        aside a:hover {
+            background-color: #e10600;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            background-color: #f8f8f8;
+            overflow-y: auto;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #111;
+            color: #fff;
+        }
+
+        form {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        input[type="text"] {
+            padding: 0.5rem;
+            flex: 1;
+        }
+
+        button {
+            background-color: #e10600;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b80500;
+        }
+
+        .delete-button {
+            background-color: #e10600;
+        }
+    </style>
+</head>
+<body>
+<aside>
+    <h1>SportyShoes</h1>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/products">Products</a>
+    <a href="/admin/categories">Categories</a>
+    <a href="/admin/users">Users</a>
+    <a href="/admin/purchases">Reports</a>
+    <a href="/admin/change-password">Change Password</a>
+    <a href="/admin/logout">Logout</a>
+</aside>
+
+<main>
+    <h2>Manage Categories</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cat : ${categories}">
+                <td th:text="${cat.id}">1</td>
+                <td th:text="${cat.name}">Running</td>
+                <td>
+                    <form th:action="@{'/admin/categories/delete/' + ${cat.id}}" method="post" onsubmit="return confirm('Delete this category?');">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{/admin/categories/add}" method="post" th:object="${newCategory}">
+        <input type="text" th:field="*{name}" placeholder="New category name" required />
+        <button type="submit">Add Category</button>
+    </form>
+
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+</main>
+</body>
+</html>

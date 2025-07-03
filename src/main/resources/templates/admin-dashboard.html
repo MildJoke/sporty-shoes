@@ -46,9 +46,14 @@
             background-color: #f8f8f8;
             overflow-y: auto;
         }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
         h2 {
             font-size: 2rem;
-            margin-bottom: 2rem;
         }
         .actions {
             display: grid;
@@ -75,10 +80,11 @@
     </style>
 </head>
 <body>
-    <aside>
+        <aside>
         <h1>SportyShoes</h1>
         <a href="/admin/dashboard">Dashboard</a>
         <a href="/admin/products">Products</a>
+        <a href="/admin/categories">Categories</a>
         <a href="/admin/users">Users</a>
         <a href="/admin/purchases">Reports</a>
         <a href="/admin/change-password">Change Password</a>
@@ -91,6 +97,9 @@
                 <a href="/admin/products">Manage Products</a>
             </div>
             <div class="action">
+                <a href="/admin/categories">Manage Categories</a> 
+            </div>
+            <div class="action">
                 <a href="/admin/users">View Users</a>
             </div>
             <div class="action">
@@ -101,5 +110,6 @@
             </div>
         </div>
     </main>
-</body>
+
+    </body>
 </html>

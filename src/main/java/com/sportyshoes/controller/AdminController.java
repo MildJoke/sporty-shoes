@@ -2,6 +2,9 @@ package com.sportyshoes.controller;
 
 import com.sportyshoes.model.Admin;
 import com.sportyshoes.repository.AdminRepository;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,11 +37,11 @@ public class AdminController {
             model.addAttribute("admin", new Admin()); // repopulate the form
             return "admin-login";
     }
-    @PostMapping("/logout")
-    public String logout() {
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // destroy admin session
         return "redirect:/admin/login";
     }
-
 
 
     @GetMapping("/dashboard")

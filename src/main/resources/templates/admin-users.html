@@ -1,33 +1,121 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>User List</title>
+    <title>View Users - SportyShoes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #fff;
+            color: #111;
+        }
+        aside {
+            width: 240px;
+            background-color: #111;
+            color: #fff;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        aside h1 {
+            color: #e10600;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        aside a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+        }
+        aside a:hover {
+            background-color: #e10600;
+        }
+        main {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        h2 {
+            font-size: 1.8rem;
+            color: #e10600;
+            margin-bottom: 1.5rem;
+        }
+        form {
+            margin-bottom: 2rem;
+        }
+        input[type="text"] {
+            padding: 0.5rem;
+            width: 250px;
+            margin-right: 1rem;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #e10600;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #c00000;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #f8f8f8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #111;
+            color: #fff;
+        }
+        tr:hover {
+            background-color: #ffecec;
+        }
+    </style>
 </head>
 <body>
-    <h1>Registered Users</h1>
+<aside>
+    <h1>SportyShoes</h1>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/products">Products</a>
+    <a href="/admin/users">Users</a>
+    <a href="/admin/purchases">Reports</a>
+    <a href="/admin/change-password">Change Password</a>
+    <a href="/admin/logout">Logout</a>
+</aside>
+<main>
+    <h2>View All Registered Users</h2>
 
     <form th:action="@{/admin/users}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by name or email" />
+        <input type="text" name="keyword" placeholder="Search by name or email..." th:value="${keyword}" />
         <button type="submit">Search</button>
     </form>
 
-    <table border="1" cellpadding="5">
+    <table>
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-            </tr>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.email}"></td>
-            </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.name}">User Name</td>
+            <td th:text="${user.email}">Email</td>
+        </tr>
         </tbody>
     </table>
-
-    <p><a href="/admin/dashboard">Back to Dashboard</a></p>
+</main>
 </body>
 </html>
