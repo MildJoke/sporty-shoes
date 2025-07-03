@@ -116,7 +116,7 @@
         </div>
         <div class="stat-card">
             <strong>Last Order</strong>
-            <p th:text="${lastOrder != null ? #dates.format(lastOrder.purchaseDate, 'dd MMM yyyy') : 'N/A'}">N/A</p>
+            <p th:text="${lastOrderDate}">N/A</p>
         </div>
     </div>
 
